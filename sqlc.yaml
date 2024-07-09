@@ -1,0 +1,13 @@
+version: "2"
+sql:
+  - schema: "./db/migration/*.sql"  # 数据库模式文件的路径，可以使用通配符
+    queries: "./db/query/*.sql"  # SQL 查询文件的路径，可以使用通配符
+    engine: "postgresql"  # 数据库类型
+    gen:
+      go:
+        package: "db"  # 生成的 Go 包名称
+        out: "db/sqlc"  # 生成的 Go 代码输出目录
+        emit_json_tags: true  # 启用 JSON 标签
+
+
+
