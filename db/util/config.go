@@ -18,12 +18,14 @@ type Config struct {
 	EmailSenderName      string        `mapstructure:"EMAIL_SENDER_NAME"`
 	EmailSenderAddress   string        `mapstructure:"EMAIL_SENDER_ADDRESS"`
 	EmailSenderPassword  string        `mapstructure:"EMAIL_SENDER_PASSWORD"`
+	DBDriver             string        `mapstructure:"DB_DRIVER"`
+	ServerAddress        string        `mapstructure:"SERVER_ADDRESS"`
 }
 
 // LoadConfig reads configuration from file or environment variables.
 func LoadConfig(path string) (config Config, err error) {
 	viper.AddConfigPath(path)
-	viper.SetConfigName("app")
+	viper.SetConfigName("app") // Assuming your config file is named "app.env"
 	viper.SetConfigType("env")
 
 	viper.AutomaticEnv()
@@ -34,5 +36,9 @@ func LoadConfig(path string) (config Config, err error) {
 	}
 
 	err = viper.Unmarshal(&config)
+	if err != nil {
+		return
+	}
+
 	return
 }
